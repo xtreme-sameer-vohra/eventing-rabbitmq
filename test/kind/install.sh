@@ -16,15 +16,11 @@
 
 set -o errexit
 
-readonly ROOT_DIR=$(dirname $0)/../..
-[[ ! -v REPO_ROOT_DIR ]] && REPO_ROOT_DIR="$(git rev-parse --show-toplevel)"
-readonly REPO_ROOT_DIR
-
 export KO_DOCKER_REPO=kind.local
 export KIND_CLUSTER_NAME=knik
 pwd
 
 echo "Installing Knative Eventing RabbitMQ API"
 
-ko apply -f ${REPO_ROOT_DIR}/config/broker
-ko apply -f ${REPO_ROOT_DIR}/config/source
+ko apply -f ./config/broker
+ko apply -f ./config/source

@@ -25,17 +25,8 @@ set -o errexit
 
 # create registry container unless it already exists
 cluster_name=knik
-node_image='kindest/node:v1.18.8@sha256:f4bcc97a0ad6e7abaf3f643d890add7efe6ee4ab90baeb374b4f41a4c95567eb' # from the 0.9.0 release of kind.
 
 kindVersion=`kind version`;
-
-if [[ $kindVersion =~ "v0.9.0" ]]
-then
-   echo "KinD is v0.9.0"
-else
-  echo "Please make sure you are using KinD v0.9.0 or update the node_image"
-  exit 0
-fi
 
 # Parse flags to determine any we should pass to dep.
 check=0
@@ -87,9 +78,7 @@ kind: Cluster
 apiVersion: kind.x-k8s.io/v1alpha4
 nodes:
 - role: control-plane
-  image: ${node_image}
 - role: worker
-  image: ${node_image}
 kubeadmConfigPatches:
   - |
     apiVersion: kubeadm.k8s.io/v1beta2
